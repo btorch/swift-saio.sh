@@ -1,0 +1,11 @@
+
+- INSTRUCTIONS 
+
+    For now this is very dirty and straight forward (only tested on ubuntu 10.04) 
+    download the repo using "git clone" or tarball
+    cd into the swift-saio.sh directory 
+    execute ./swift-saio.sh   (as root user) 
+
+    PLEASE NOTE: 
+        This should be run a clean/new  virtual machine (not used for anything else) 
+        Use it at your own risk 
