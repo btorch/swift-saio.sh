@@ -4,6 +4,7 @@
     For now this is very dirty and straight forward (only tested on ubuntu 10.04) 
     download the repo using "git clone" or tarball
     cd into the swift-saio.sh directory 
+    Go over the swift-saio.cfg file and make the changes needed 
     execute ./swift-saio.sh   (as root user) 
 
     PLEASE NOTE: 
