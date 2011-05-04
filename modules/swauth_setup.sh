@@ -39,6 +39,10 @@ swauth_setup (){
     curl -i -H "X-auth-user: $SWACCOUNT:$SWUSER" -H "X-auth-key: $SWPASS" http://127.0.0.1:$PROXY_PORT/auth/v1.0
 
     printf "\n"
-    printf "\n\t Swift-SAIO environment finished .. have fun :-) "
+    printf "\n\t#############################################################"
+    printf "\n\t###    Swift-SAIO environment finished .. have fun :-)   ####"
+    printf "\n\t#############################################################\n\n"
+
+
 return 0
 }

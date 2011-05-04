@@ -38,6 +38,45 @@ start_services (){
         fi 
     done
 
+    printf "\n\t - Starting rest of swift services "
+
+    for service in "${OBJECT_SERVICES[@]}"
+    do 
+        printf "\n\t\t $service : "
+        $SWIFTINIT $service start > /dev/null
+        ps -U swift -f | grep -w "swift-$service" > /dev/null
+        if [ $? -eq 0 ]; then
+            echo -n "OK"
+        else
+            echo -n "FAIL"
+        fi
+    done
+
+    for service in "${ACCOUNT_SERVICES[@]}"
+    do 
+        printf "\n\t\t $service : "
+        $SWIFTINIT $service start > /dev/null
+        ps -U swift -f | grep -w "swift-$service" > /dev/null
+        if [ $? -eq 0 ]; then
+            echo -n "OK"
+        else
+            echo -n "FAIL"
+        fi
+    done
+
+    for service in "${CONTAINER_SERVICES[@]}"
+    do 
+        printf "\n\t\t $service : "
+        $SWIFTINIT $service start > /dev/null
+        ps -U swift -f | grep -w "swift-$service" > /dev/null
+        if [ $? -eq 0 ]; then
+            echo -n "OK"
+        else
+            echo -n "FAIL"
+        fi
+    done
+
+
     # Also start memcache and rsync
     printf "\n\t\t Starting memcached: "
     /etc/init.d/memcached start > /dev/null
