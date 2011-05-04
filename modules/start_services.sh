@@ -19,14 +19,14 @@
 start_services (){
 
     SWIFTINIT=`which swift-init`
-    MAIN_SERVICES="proxy-server account-server container-server object-server"
-    OBJECT_SERVICES="object-replicator object-auditor object-updater "
-    ACCOUNT_SERVICES="account-auditor account-reaper account-replicator"
-    CONTAINER_SERVICES="container-updater container-replicator container-auditor"
+    MAIN_SERVICES=("proxy-server" "account-server" "container-server" "object-server")
+    OBJECT_SERVICES=("object-replicator" "object-auditor" "object-updater")
+    ACCOUNT_SERVICES=("account-auditor" "account-reaper" "account-replicator")
+    CONTAINER_SERVICES=("container-updater" "container-replicator" "container-auditor")
 
     printf "\n\t - Starting up main services "
 
-    for service in "$MAIN_SERVICES"
+    for service in "${MAIN_SERVICES[@]}"
     do 
         printf "\n\t\t $service : "
         $SWIFTINIT $service start > /dev/null 
@@ -44,6 +44,8 @@ start_services (){
 
     printf "\n\t\t Starting rsyncd "
     /etc/init.d/rsync start > /dev/null
+
+    printf "\n"
 
 return 0 
 }
