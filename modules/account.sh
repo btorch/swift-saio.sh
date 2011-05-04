@@ -13,7 +13,7 @@
 #
 
 ###########################
-#  CONTAINER SERVER SETUP 
+#  ACCOUNT SERVER SETUP 
 ###########################
 
 setup_account (){

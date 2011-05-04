@@ -13,7 +13,7 @@
 #
 
 ###########################
-#  CONTAINER SERVER SETUP 
+#  PROXY SERVER SETUP 
 ###########################
 
 setup_proxy (){
