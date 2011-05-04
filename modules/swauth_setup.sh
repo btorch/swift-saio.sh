@@ -22,16 +22,23 @@ swauth_setup (){
     SWAUTH_ADD=`which swauth-add-user`
     SWAUTH_LIST=`which swauth-list`
 
+
+    printf "\n\t - SWAuth account prep "
     printf "\n\t\t Setting up swiftops account "
     $SWAUTH_PREP -K $SWAUTHKEY_VALUE
     $SWAUTH_ADD -K $SWAUTHKEY_VALUE -a $SWACCOUNT $SWUSER $SWPASS
-    $SWAUTH_LIST -K $SWAUTHKEY_VALUE $SWACCOUNT $SWUSER
+    #$SWAUTH_LIST -K $SWAUTHKEY_VALUE $SWACCOUNT $SWUSER
 
-    printf "\n\t\t Public/LocalNet Authentication command \n"
-    echo "curl -i -H \"X-auth-user: $SWACCOUNT:$SWUSER\" -H \"X-auth-key: $SWPASS\" http://$PROXY_IPADDR:$PROXY_PORT/auth/v1.0 "
+    printf "\n\t\t Public/LocalNet Authentication command: \n"
+    echo -e "\t\t curl -i -H \"X-auth-user: $SWACCOUNT:$SWUSER\" -H \"X-auth-key: $SWPASS\" http://$PROXY_IPADDR:$PROXY_PORT/auth/v1.0 "
 
-    printf "\n\t\t Internal Authentication command \n"
-    echo "curl -i -H \"X-auth-user: $SWACCOUNT:$SWUSER\" -H \"X-auth-key: $SWPASS\" http://127.0.0.1:$PROXY_PORT/auth/v1.0 "
+    printf "\n\t\t Internal Authentication command: \n"
+    echo -e "\t\t curl -i -H \"X-auth-user: $SWACCOUNT:$SWUSER\" -H \"X-auth-key: $SWPASS\" http://127.0.0.1:$PROXY_PORT/auth/v1.0 "
 
+    printf "\n\t\t Quick auth test: \n"
+    curl -i -H "X-auth-user: $SWACCOUNT:$SWUSER" -H "X-auth-key: $SWPASS" http://127.0.0.1:$PROXY_PORT/auth/v1.0
+
+    printf "\n"
+    printf "\n\t Swift-SAIO environment finished .. have fun :-) "
 return 0
 }

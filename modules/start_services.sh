@@ -32,17 +32,17 @@ start_services (){
         $SWIFTINIT $service start > /dev/null 
         ps -U swift -f | grep -w "swift-$service" > /dev/null
         if [ $? -eq 0 ]; then 
-            echo "OK"
+            echo -n "OK"
         else
-            echo "FAIL"
+            echo -n "FAIL"
         fi 
     done
 
     # Also start memcache and rsync
-    printf "\n\t\t Starting memcached "
+    printf "\n\t\t Starting memcached: "
     /etc/init.d/memcached start > /dev/null
 
-    printf "\n\t\t Starting rsyncd "
+    printf "\n\t\t Starting rsyncd: "
     /etc/init.d/rsync start > /dev/null
 
     printf "\n"
