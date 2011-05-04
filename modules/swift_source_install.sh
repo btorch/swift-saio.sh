@@ -30,7 +30,7 @@ source_install (){
     cd $SWIFT_TEMP
 
     printf "\t\t Downloading swift $VERSION source code \n\n"
-    BZR=`bzr -q branch lp:swift/$VERSION` 
+    BZR=`bzr branch lp:swift/$VERSION` 
 
     #echo -e "$BZR " | sed 's/^/\t\t/'
 
