@@ -19,6 +19,7 @@
 setup_proxy (){
     printf "\t\t Setting up proxy-server configs \n"
 
+    mkdir -p $SWIFT_CONF/proxy-server
     cp $TEMPLATES/proxy-server/proxy-server.conf.tmpl  /etc/swift/proxy-server/proxy-server.conf
     sed -i "s/PORT/$PROXY_PORT/g"  /etc/swift/proxy-server/proxy-server.conf
     sed -i "s/ALLOW_ACCOUNT_MGNT_BOOLEAN_VALUE/$ALLOW_ACCOUNT_MGNT/"  /etc/swift/proxy-server/proxy-server.conf
