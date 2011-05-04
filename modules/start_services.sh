@@ -38,7 +38,7 @@ start_services (){
         fi 
     done
 
-    printf "\n\t - Starting rest of swift services "
+    printf "\n\n\t - Starting rest of swift services "
 
     for service in "${OBJECT_SERVICES[@]}"
     do 
@@ -76,13 +76,12 @@ start_services (){
         fi
     done
 
-
     # Also start memcache and rsync
-    printf "\n\t\t Starting memcached: "
-    /etc/init.d/memcached start > /dev/null
-
     printf "\n\t\t Starting rsyncd: "
     /etc/init.d/rsync start > /dev/null
+
+    printf "\n\t\t Starting memcached: "
+    /etc/init.d/memcached start > /dev/null
 
     printf "\n"
 

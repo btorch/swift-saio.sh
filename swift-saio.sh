@@ -138,6 +138,7 @@ main_banner (){
 # Call Intro Banner
 main_banner
 
+
 ####################################
 #  NON-PYTHON DEPENDENCIES INSTALL  
 ####################################
@@ -145,79 +146,85 @@ source $MODULES/non_python_deps_install.sh
 install_non_python_deps "ubuntu"
 
 
-# Start installation of Python-modules dependencies 
-# List of Packages : python-configobj python-setuptools python-pastedeploy python-openssl python-cheetah  
-# python-scgi python-paste python-simplejson python-webob python-formencode python-netifaces  
-# python-pkg-resources libjs-jquery python-pastescript python-xattr python-dev 
-printf "\n\t - Python packages installation (dependecies) "
-printf "\n\t\t Packages: several, please check code for package listing \n"
-printf "\n\t\t Would you like to proceed ? (y/n) "
-
-read choice 
-if [ "$choice" = "y" ]; then 
-    printf "\t\t Proceeding with python package(s) installation \n"
-    RESULT=`apt-get install python-configobj python-setuptools python-pastedeploy python-openssl python-cheetah  \
-    python-scgi python-paste python-simplejson python-webob python-formencode python-netifaces  \
-    python-pkg-resources libjs-jquery python-pastescript python-xattr  -y --force-yes -qq 2>&1 ` 
-
-    if [ $? -eq 0 ]; then 
-        printf "\n\t\t -> Succesfully done \n"
-    else
-        printf "\t\t\t -> $RESULT \n"
-        printf "\t\t\t -> \033[1;31;40m Error found  \033[0m\n\n"
-        exit 1
-    fi
-else
-    printf "\t\t\033[1;31;40m Quitting installation \033[0m\n\n"
-    exit 101
-fi
+####################################
+#  PYTHON DEPENDENCIES INSTALL  
+####################################
+source $MODULES/python_deps_install.sh
+install_python_deps "ubuntu"
 
 
-# Start of PPA installation of certain python modules
-printf "\n\t - Python packages PPA installation (dependecies) "
-printf "\n\t\t Packages: python-eventlet python-greenlet python-webob  \n"
-printf "\n\t\t The PPA repo will be temporarily added and then removed "
-printf "\n\t\t Is it ok to have it removed ? (y/n) "
-
-read choice 
-if [ "$choice" = "y" ]; then 
-    REMOVE_PPA=1
-    printf "\t\t -> PPA repo will be removed "
-else 
-    REMOVE_PPA=0
-    printf "\t\t -> PPA repo will not be removed as requested "
-fi
-
-printf "\n"
-
-
-COMMANDS=("apt-get install python-software-properties -qq -y" "add-apt-repository ppa:swift-core/trunk " "apt-get -qq update")
-for i in "${COMMANDS[@]}"
-do 
-    RESULT=`$i 2>&1`
-    if [ $? != 0 ]; then 
-        printf "\t\t\t -> CMD: $i \n"
-        printf "\t\t\t -> $RESULT \n"
-        printf "\t\t\t -> \033[1;31;40m Error found  \033[0m\n\n"
-        exit 1
-    fi
-done
-
-printf "\n\t\t Proceeding with python PPA package(s) installation "
-RESULT=`apt-get install -qq -y --force-yes python-eventlet python-greenlet python-webob 2>&1`
-
-if [ $? -eq 0 ]; then
-    printf "\n\t\t -> Succesfully done \n"
-else
-    printf "\t\t\t -> $RESULT \n"
-    printf "\t\t\t -> \033[1;31;40m Error found  \033[0m\n\n"
-    exit 1
-fi
-
-if [ $REMOVE_PPA -eq 1 ]; then 
-    find /etc/apt/sources.list.d -iname "swift*" -type f -exec rm -f {} \;
-fi
-
+#### Start installation of Python-modules dependencies 
+#### List of Packages : python-configobj python-setuptools python-pastedeploy python-openssl python-cheetah  
+#### python-scgi python-paste python-simplejson python-webob python-formencode python-netifaces  
+#### python-pkg-resources libjs-jquery python-pastescript python-xattr python-dev 
+###printf "\n\t - Python packages installation (dependecies) "
+###printf "\n\t\t Packages: several, please check code for package listing \n"
+###printf "\n\t\t Would you like to proceed ? (y/n) "
+###
+###read choice 
+###if [ "$choice" = "y" ]; then 
+###    printf "\t\t Proceeding with python package(s) installation \n"
+###    RESULT=`apt-get install python-configobj python-setuptools python-pastedeploy python-openssl python-cheetah  \
+###    python-scgi python-paste python-simplejson python-webob python-formencode python-netifaces  \
+###    python-pkg-resources libjs-jquery python-pastescript python-xattr  -y --force-yes -qq 2>&1 ` 
+###
+###    if [ $? -eq 0 ]; then 
+###        printf "\n\t\t -> Succesfully done \n"
+###    else
+###        printf "\t\t\t -> $RESULT \n"
+###        printf "\t\t\t -> \033[1;31;40m Error found  \033[0m\n\n"
+###        exit 1
+###    fi
+###else
+###    printf "\t\t\033[1;31;40m Quitting installation \033[0m\n\n"
+###    exit 101
+###fi
+###
+###
+#### Start of PPA installation of certain python modules
+###printf "\n\t - Python packages PPA installation (dependecies) "
+###printf "\n\t\t Packages: python-eventlet python-greenlet python-webob  \n"
+###printf "\n\t\t The PPA repo will be temporarily added and then removed "
+###printf "\n\t\t Is it ok to have it removed ? (y/n) "
+###
+###read choice 
+###if [ "$choice" = "y" ]; then 
+###    REMOVE_PPA=1
+###    printf "\t\t -> PPA repo will be removed "
+###else 
+###    REMOVE_PPA=0
+###    printf "\t\t -> PPA repo will not be removed as requested "
+###fi
+###
+###printf "\n"
+###
+###
+###COMMANDS=("apt-get install python-software-properties -qq -y" "add-apt-repository ppa:swift-core/trunk " "apt-get -qq update")
+###for i in "${COMMANDS[@]}"
+###do 
+###    RESULT=`$i 2>&1`
+###    if [ $? != 0 ]; then 
+###        printf "\t\t\t -> CMD: $i \n"
+###        printf "\t\t\t -> $RESULT \n"
+###        printf "\t\t\t -> \033[1;31;40m Error found  \033[0m\n\n"
+###        exit 1
+###    fi
+###done
+###
+###printf "\n\t\t Proceeding with python PPA package(s) installation "
+###RESULT=`apt-get install -qq -y --force-yes python-eventlet python-greenlet python-webob 2>&1`
+###
+###if [ $? -eq 0 ]; then
+###    printf "\n\t\t -> Succesfully done \n"
+###else
+###    printf "\t\t\t -> $RESULT \n"
+###    printf "\t\t\t -> \033[1;31;40m Error found  \033[0m\n\n"
+###    exit 1
+###fi
+###
+###if [ $REMOVE_PPA -eq 1 ]; then 
+###    find /etc/apt/sources.list.d -iname "swift*" -type f -exec rm -f {} \;
+###fi
 
 
 
