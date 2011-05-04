@@ -86,7 +86,7 @@ if [ ! -e $CFG_FILE ]; then
     printf "\n\t No configuration file found (\033[1;31;40m mmissing: %s \033[0m)\n" "$CFG_FILE" 
     exit 1
 else
-    printf "\n\t - Sourcing configuration file "
+    #printf "\n\t - Sourcing configuration file "
     source $CFG_FILE
 fi
 
@@ -96,7 +96,7 @@ fi
 # FUNCTIONS 
 ##################
 # Progress bar 
-spinner(){
+spinner (){
     PROC=$1
     echo -n '[' 
     while [ -d /proc/$PROC ];do
@@ -109,35 +109,40 @@ spinner(){
     return 0
 }
 
+main_banner (){
+
+    SYSTEM=`cat /etc/issue | head -n1`
+    ARCH=`uname -m`
+    IP6=`lsmod |grep ipv6 >/dev/null ; echo $?`
+    if [ $IP6 -eq 0 ]; then 
+        IP6="yes"
+    else
+        IP6="no"
+    fi
+
+    printf "\n\t #######################################################"
+    printf "\n\t #           WELCOME TO SWIFT-SAIO.SH ver1.0           #" 
+    printf "\n\t #######################################################"
+    printf "\n\t #   Your System : %s " "$SYSTEM"
+    printf "\n\t #   Your Arch : %s " "$ARCH"
+    printf "\n\t #   IPv6 Ready  : %s " "$IP6"
+    printf "\n\t # "
+    printf "\n\t # \n"
+}   
 
 
 ################## 
 #   POSSIBLE MAIN
 ##################
 
-# Start installation of dependencies
-printf "\n\t - Initial non-python package installation prior to swift setup"
-printf "\n\t\t Packages: bzr curl memcached  sqlite3 xfsprogs iproute screen \n"
-printf "\n\t\t Would you like to proceed ? (y/n) "
+# Call Intro Banner
+main_banner
 
-read choice 
-if [ "$choice" = "y" ]; then 
-    printf "\t\t Proceeding with package(s) installation \n"
-    apt-get -qq update 
-    RESULT=`apt-get install bzr curl memcached sqlite3 xfsprogs iproute screen -y --force-yes -qq 2>&1`
-
-    if [ $? -eq 0 ]; then 
-        printf "\n\t\t -> Succesfully done \n"
-    else
-        printf "\t\t\t -> $RESULT \n"
-        printf "\t\t\t -> \033[1;31;40m Error found  \033[0m\n\n"
-        exit 1
-    fi
-else
-    printf "\t\t\033[1;31;40m Quitting installation \033[0m\n\n"
-    exit 101
-fi
-
+####################################
+#  NON-PYTHON DEPENDENCIES INSTALL  
+####################################
+source $MODULES/non_python_deps_install.sh
+install_non_python_deps "ubuntu"
 
 
 # Start installation of Python-modules dependencies 
@@ -219,60 +224,8 @@ fi
 ########################
 # SWIFT SOURCE INSTALL 
 ########################
-INSTALLATION_PREFIX="/usr"
-SWIFT_TEMP="swift-src"
-cd $CURDIR
-
-printf "\n\t - Starting swift source installation process \n"
-
-if [ ! -d ./$SWIFT_TEMP ]; then  
-    printf "\t\t Creating temporaty source directory \n"
-    mkdir swift-src
-fi 
-
-cd $SWIFT_TEMP
-
-printf "\t\t Downloading swift $VERSION source code \n\n"
-BZR=`bzr branch lp:swift/$VERSION`
-
-echo -e "$BZR " | sed 's/^/\t\t/'
-
-cd $VERSION 
-if [ ! -d /usr/lib/python$PYTHON_VER/site-packages ]; then 
-    printf "\t\t Creating python site-packages directory \n"
-    mkdir -p /usr/lib/python$PYTHON_VER/site-packages
-fi 
-
-
-sleep 3
-printf "\t\t Building & Installing swift $VERSION under /usr/local "
-python setup.py build 2>&1 >  $CURDIR/bzr_swift_build_$VERSION.log  
-CODE=$?
-
-if [ $CODE -eq 0 ];then 
-    printf "\n\t\t -> Build sucessful "
-else
-    printf "\t\t\t -> \033[1;31;40m Error found (check log file)  \033[0m\n\n"
-    exit 1
-fi
-
-sleep 2
-python setup.py install 2>&1 >  $CURDIR/bzr_swift_install_$VERSION.log  
-CODE=$?
-
-if [ $CODE -eq 0 ];then 
-    printf "\n\t\t -> Install sucessful "
-else
-    printf "\t\t\t -> \033[1;31;40m Error found (check log file)  \033[0m\n\n"
-    exit 1
-fi
-
-
-printf "\n\n"
-cd $CURDIR
-if [ -d $CURDIR/$SWIFT_TEMP ]; then 
-    rm -rf $SWIFT_TEMP
-fi 
+source $MODULES/swift_source_install.sh
+source_install
 
 
 
@@ -290,10 +243,6 @@ setup_loopdev $MOUNT_LOCATION $DD_FILE $DD_BS_VALUE $DD_SEEK_VALUE
 
 # Configuration Path setup  
 mkdir -p $SWIFT_CONF
-#mkdir -p $SWIFT_CONF/object-server
-#mkdir -p $SWIFT_CONF/container-server
-#Mkdir -p $SWIFT_CONF/account-server
-mkdir -p $SWIFT_CONF/proxy-server
 
 
 printf "\n\t - Starting Swift $VERSION configuration setup "
@@ -367,26 +316,12 @@ final_steps
 source $MODULES/start_services.sh
 start_services
 
-###SWIFTINIT=`which swift-init`
-###printf "\n\t - Starting up services "
-###$SWIFTINIT proxy start
-###$SWIFTINIT account-server start
-###$SWIFTINIT container-server start
-###$SWIFTINIT object-server start
 
 ###############################
 # SETUP SWAUTH & ADMIN ACCOUNT
 ###############################
 source $MODULES/swauth_setup.sh
 swauth_setup
-
-###SWAUTH_PREP=`which swauth-prep`
-###SWAUTH_ADD=`which swauth-add-user`
-###SWAUTH_LIST=`which swauth-list`
-###printf "\n\t\t Setting up swiftops account "
-###$SWAUTH_PREP -K $SWAUTHKEY_VALUE
-###$SWAUTH_ADD -K $SWAUTHKEY_VALUE -a $SWACCOUNT $SWUSER $SWPASS
-###$SWAUTH_LIST -K $SWAUTHKEY_VALUE $SWACCOUNT $SWUSER
 
 
 exit 0 
