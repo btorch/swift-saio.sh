@@ -4,10 +4,14 @@
 
 - INSTRUCTIONS 
 
+    1. Obtain the code 
+        - GITHUB TRUNK:
+            git clone git://github.com/btorch/swift-saio.sh.git
 
-    1. Obtain the script 
-        - You could "git clone git://github.com/btorch/swift-saio.sh.git"
-        - Or download it as a compressed archive
+        - GITHUB TAG:
+            git clone git://github.com/btorch/swift-saio.sh.git TAG_VALUE
+
+        - Or download a tagged version as a compressed archive from github
 
     2. After clonning the github repo or unconpressing the archive 
         - cd into the swift-saio.sh directory 
