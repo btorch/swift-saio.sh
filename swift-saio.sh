@@ -24,6 +24,11 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 
+# DEFAULTS
+PYTHON_VER="2.6"
+IPV6_SUPPORT="false"
+
+
 # ARGUMENTS 
 NUMBER_OF_ARGS=$#
 ARG_SARRAY=("$@")
@@ -43,19 +48,22 @@ exit 1
 }
 
 
-while getopts "r:h" opts
+while getopts "r:6h" opts
 do 
     case $opts in 
         r) 
             VERSION="${OPTARG}"
-            if [ "$VERSION" != "1.3" ]; then 
-                printf "\t Sorry, only 1.3 version currently supported \n"
+            VER_REGEX="^1\.[23]"
+            if [[ ! "$VERSION" =~ $VER_REGEX ]]; then 
+                printf "\t Sorry, only version 1.2 and 1.3 currently supported \n"
                 exit 1 
             fi
             ;;
         6)
-            if [ "$VERSION" = "1.2" ]; then
-                IPV6_SUPPORT="false"
+            VER_REGEX="^1\.[3-9]"
+            if [[ ! "$VERSION" =~ $VER_REGEX ]]; then
+                printf "\t Sorry, IPv6 only supported on version 1.3 and above \n"
+                exit 1 
             else
                 IPV6_SUPPORT="true"
             fi
@@ -73,12 +81,16 @@ done
 
 # INITIAL VARIABLES
 CURDIR=`pwd`
-VERSION="1.3"                       # Overrides the -r flag at this time
-PYTHON_VER="2.6"
+#VERSION="1.3"                       # Overrides the -r flag at this time
 TEMPLATES="./etc/swift-$VERSION"
 CFG_FILE="$CURDIR/swift-saio.cfg"
 MODULES="$CURDIR/modules"
-IPV6_SUPPORT="false"
+
+if [ "$IPV6_SUPPORT" = "false" ];then 
+    BIND_IP="0.0.0.0"
+elif [ "$IPV6_SUPPORT" = "true" ];then
+    BIND_IP="::"
+fi
 
 
 # SOURCE CONFIGURATION FILE
