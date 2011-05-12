@@ -30,6 +30,7 @@ start_services (){
     do 
         printf "\n\t\t $service : "
         $SWIFTINIT $service start > /dev/null 
+        sleep 1
         ps -U swift -f | grep -w "swift-$service" > /dev/null
         if [ $? -eq 0 ]; then 
             echo -n "OK"
@@ -44,6 +45,7 @@ start_services (){
     do 
         printf "\n\t\t $service : "
         $SWIFTINIT $service start > /dev/null
+        sleep 1
         ps -U swift -f | grep -w "swift-$service" > /dev/null
         if [ $? -eq 0 ]; then
             echo -n "OK"
@@ -56,6 +58,7 @@ start_services (){
     do 
         printf "\n\t\t $service : "
         $SWIFTINIT $service start > /dev/null
+        sleep 1
         ps -U swift -f | grep -w "swift-$service" > /dev/null
         if [ $? -eq 0 ]; then
             echo -n "OK"
@@ -68,6 +71,7 @@ start_services (){
     do 
         printf "\n\t\t $service : "
         $SWIFTINIT $service start > /dev/null
+        sleep 1
         ps -U swift -f | grep -w "swift-$service" > /dev/null
         if [ $? -eq 0 ]; then
             echo -n "OK"
