@@ -1,0 +1,4 @@
+
+    * Setup IPv6 setup using either ULA or Global addressing (no LocalLink)
+    * Setup rsyslog 
+
