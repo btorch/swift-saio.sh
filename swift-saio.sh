@@ -27,6 +27,7 @@ fi
 # DEFAULTS
 PYTHON_VER="2.6"
 IPV6_SUPPORT="false"
+VERSION="1.3"
 
 
 # ARGUMENTS 
@@ -81,7 +82,6 @@ done
 
 # INITIAL VARIABLES
 CURDIR=`pwd`
-#VERSION="1.3"                       # Overrides the -r flag at this time
 TEMPLATES="./etc/swift-$VERSION"
 CFG_FILE="$CURDIR/swift-saio.cfg"
 MODULES="$CURDIR/modules"
@@ -138,6 +138,8 @@ main_banner (){
     printf "\n\t #   Your System : %s " "$SYSTEM"
     printf "\n\t #   Your Arch : %s " "$ARCH"
     printf "\n\t #   IPv6 Ready  : %s " "$IP6"
+    printf "\n\t #  " 
+    printf "\n\t #   Swift Install : %s " "$VERSION"
     printf "\n\t # "
     printf "\n\t # \n"
 }   
