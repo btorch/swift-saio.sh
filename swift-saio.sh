@@ -9,13 +9,6 @@
 #       Currently the script is setup to install swift from source
 #
 #
-# Todo:
-#       - Setup SAIO with ipv6 networking 
-#       - Create functions and modules 
-#       - Add ipv6 setup 
-#       - Add 1.2 and trunk support 
-#
-#
 
 # CHECK USER ID (MUST BE ROOT)
 if [ "$(id -u)" != "0" ]; then
@@ -151,6 +144,16 @@ main_banner (){
 
 # Call Intro Banner
 main_banner
+
+
+####################################
+#  CHECK IPV6   
+####################################
+if [ "$IPV6_SUPPORT" = "true" ]; then 
+    source $MODULES/ipv6_config.sh
+    ipv6_banner 
+    ipv6_check
+fi
 
 
 ####################################

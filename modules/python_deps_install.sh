@@ -90,9 +90,15 @@ install_python_deps (){
     done
 
     printf "\n\t\t Proceeding with python PPA package(s) installation "
-    RESULT=`$INSTOOL install python-eventlet python-greenlet python-webob $INSTOOL_OPTS 2>&1`
+    if [ "$IPV6_SUPPORT" = "true" ]; then
+        RESULT=`$INSTOOL install python-greenlet python-webob $INSTOOL_OPTS &> /dev/null ; echo $?`
+        RESULT2=`easy_install eventlet  &> /dev/null ; echo $?`
+    else
+        RESULT=`$INSTOOL install python-eventlet python-greenlet python-webob $INSTOOL_OPTS &> /dev/null ; echo $?`
+        RESULT2=0
+    fi 
 
-    if [ $? -eq 0 ]; then
+    if [ $RESULT -eq 0 ] && [ $RESULT2 -eq 0 ]; then
         printf "\n\t\t -> Succesfully done \n"
     else
         printf "\t\t\t -> $RESULT \n"

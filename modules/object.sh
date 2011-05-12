@@ -40,7 +40,11 @@ setup_object (){
         sed -i "s/MOUNT_CHECK_BOOLEAN_VALUE/$MOUNT_CHECK/"  /etc/swift/object-server/$NUMBER-object-server.conf
         sed -i "s/VM_TEST_MODE_BOOLEAN_VALUE/$VM_TEST_MODE/"  /etc/swift/object-server/$NUMBER-object-server.conf
 
-        msg=${msg}"\n$RING_BUILDER $SWIFT_CONF/object.builder add z$NUMBER-$PROXY_IPADDR:$O_PORT/sdb$NUMBER 1 "
+        if [ "$IPV6_SUPPORT" = "true" ]; then
+            msg=${msg}"\n$RING_BUILDER $SWIFT_CONF/object.builder add z$NUMBER-[$PROXY_IPADDR]:$O_PORT/sdb$NUMBER 1 "
+        else
+            msg=${msg}"\n$RING_BUILDER $SWIFT_CONF/object.builder add z$NUMBER-$PROXY_IPADDR:$O_PORT/sdb$NUMBER 1 "
+        fi
     done
 
     printf "\t\t Setting up object ring builder script \n"

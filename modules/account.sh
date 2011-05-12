@@ -40,7 +40,11 @@ setup_account (){
         sed -i "s/MOUNT_CHECK_BOOLEAN_VALUE/$MOUNT_CHECK/"  /etc/swift/account-server/$NUMBER-account-server.conf
         sed -i "s/VM_TEST_MODE_BOOLEAN_VALUE/$VM_TEST_MODE/"  /etc/swift/account-server/$NUMBER-account-server.conf
 
-        msg=${msg}"\n$RING_BUILDER $SWIFT_CONF/account.builder add z$NUMBER-$PROXY_IPADDR:$A_PORT/sdb$NUMBER 1 "
+        if [ "$IPV6_SUPPORT" = "true" ]; then
+            msg=${msg}"\n$RING_BUILDER $SWIFT_CONF/account.builder add z$NUMBER-[$PROXY_IPADDR]:$A_PORT/sdb$NUMBER 1 "
+        else
+            msg=${msg}"\n$RING_BUILDER $SWIFT_CONF/account.builder add z$NUMBER-$PROXY_IPADDR:$A_PORT/sdb$NUMBER 1 "
+        fi
     done
 
     # Account Ring builder file (FUTURE FUNCTION)
