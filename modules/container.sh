@@ -34,6 +34,7 @@ setup_container (){
     do
         C_PORT="60"$NUMBER"1"
         cp $TEMPLATES/container-server/container-server.conf.tmpl  /etc/swift/container-server/$NUMBER-container-server.conf
+        sed -i "s/BINDIP/$BIND_IP/"  /etc/swift/container-server/$NUMBER-container-server.conf
         sed -i "s/PORT/$C_PORT/"  /etc/swift/container-server/$NUMBER-container-server.conf
         sed -i "s#MOUNTPOINT#$MOUNT_LOCATION#"  /etc/swift/container-server/$NUMBER-container-server.conf
         sed -i "s/MOUNT_CHECK_BOOLEAN_VALUE/$MOUNT_CHECK/"  /etc/swift/container-server/$NUMBER-container-server.conf

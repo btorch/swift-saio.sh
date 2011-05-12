@@ -34,6 +34,7 @@ setup_object (){
     do
         O_PORT="60"$NUMBER"0"
         cp $TEMPLATES/object-server/object-server.conf.tmpl  /etc/swift/object-server/$NUMBER-object-server.conf
+        sed -i "s/BINDIP/$BIND_IP/"  /etc/swift/object-server/$NUMBER-object-server.conf
         sed -i "s/PORT/$O_PORT/"  /etc/swift/object-server/$NUMBER-object-server.conf
         sed -i "s#MOUNTPOINT#$MOUNT_LOCATION#"  /etc/swift/object-server/$NUMBER-object-server.conf
         sed -i "s/MOUNT_CHECK_BOOLEAN_VALUE/$MOUNT_CHECK/"  /etc/swift/object-server/$NUMBER-object-server.conf

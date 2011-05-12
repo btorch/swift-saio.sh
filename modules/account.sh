@@ -34,6 +34,7 @@ setup_account (){
     do
         A_PORT="60"$NUMBER"2"
         cp $TEMPLATES/account-server/account-server.conf.tmpl  /etc/swift/account-server/$NUMBER-account-server.conf
+        sed -i "s/BINDIP/$BIND_IP/"  /etc/swift/account-server/$NUMBER-account-server.conf
         sed -i "s/PORT/$A_PORT/"  /etc/swift/account-server/$NUMBER-account-server.conf
         sed -i "s#MOUNTPOINT#$MOUNT_LOCATION#"  /etc/swift/account-server/$NUMBER-account-server.conf
         sed -i "s/MOUNT_CHECK_BOOLEAN_VALUE/$MOUNT_CHECK/"  /etc/swift/account-server/$NUMBER-account-server.conf

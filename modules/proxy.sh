@@ -21,6 +21,7 @@ setup_proxy (){
 
     mkdir -p $SWIFT_CONF/proxy-server
     cp $TEMPLATES/proxy-server/proxy-server.conf.tmpl  /etc/swift/proxy-server/proxy-server.conf
+    sed -i "s/BINDIP/$BIND_IP/g"  /etc/swift/proxy-server/proxy-server.conf
     sed -i "s/PORT/$PROXY_PORT/g"  /etc/swift/proxy-server/proxy-server.conf
     sed -i "s/ALLOW_ACCOUNT_MGNT_BOOLEAN_VALUE/$ALLOW_ACCOUNT_MGNT/"  /etc/swift/proxy-server/proxy-server.conf
     sed -i "s/IPADDRESS/$PROXY_IPADDR/"  /etc/swift/proxy-server/proxy-server.conf
