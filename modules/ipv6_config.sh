@@ -72,7 +72,8 @@ ipv6_check (){
         exit 1
     else
         printf "\n\t - IPv6 checks passed .. proceeding \n"
-        PROXY_IPADDR="$IP6ADDR"
+        IPV6_EXPANDED=`ipv6calc --addr_to_uncompressed $IP6ADDR`
+        PROXY_IPADDR="$IPV6_EXPANDED"
     fi
 
 }
