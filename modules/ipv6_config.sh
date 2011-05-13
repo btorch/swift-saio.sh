@@ -54,15 +54,15 @@ ipv6_check (){
     IP6ADDR=`ip -6 addr show $PROXY_IFACE | grep inet6 | grep -i "global" | awk '{print $2}' | cut -d "/" -f 1`
 
     # Check IP6 and see if it needs to be expanded 
-    NUM_OF_COLONS=7
-    OCCOURS=`echo $IP6ADDR | grep -o "::" | wc -l | sed s/\ //g`
-
-    if [[ $OCCOURS -eq 1 ]]; then 
-        printf "\n\t Please make sure your IPv6 address has \"::\" in an expanded format "
-        printf "\n\t\t E.g: fdef:8130:6627::100  should be fdef:8130:6627:0:0:0:0:100  "
-        printf "\n\t Quitting .... \n"
-        exit 1
-    fi 
+###    NUM_OF_COLONS=7
+###    OCCOURS=`echo $IP6ADDR | grep -o "::" | wc -l | sed s/\ //g`
+###
+###    if [[ $OCCOURS -eq 1 ]]; then 
+###        printf "\n\t Please make sure your IPv6 address has \"::\" in an expanded format "
+###        printf "\n\t\t E.g: fdef:8130:6627::100  should be fdef:8130:6627:0:0:0:0:100  "
+###        printf "\n\t Quitting .... \n"
+###        exit 1
+###    fi 
 
 
     # Check if IP address is ULA or Global
