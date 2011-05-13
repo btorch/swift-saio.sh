@@ -37,6 +37,12 @@ source_install (){
     cd $VERSION
     sleep 2
 
+
+    if [ "$IPV6_SUPPORT" = "true" ]; then
+        ipv6_replicator_patch      
+    fi
+
+
     printf "\t\t Building & Installing swift $VERSION under /usr/local "
     python setup.py build 2>&1 >  $CURDIR/bzr_swift_build_$VERSION.log
 

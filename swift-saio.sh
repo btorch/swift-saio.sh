@@ -76,6 +76,7 @@ done
 # INITIAL VARIABLES
 CURDIR=`pwd`
 TEMPLATES="./etc/swift-$VERSION"
+PATCHES="$CURDIR/patches"
 CFG_FILE="$CURDIR/swift-saio.cfg"
 MODULES="$CURDIR/modules"
 
