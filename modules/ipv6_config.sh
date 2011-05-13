@@ -45,6 +45,7 @@ ipv6_banner (){
 }
 
 
+
 ipv6_check (){
 
     IP6_ULA_REGEX="^(fc|fd)"
@@ -74,4 +75,21 @@ ipv6_check (){
         PROXY_IPADDR="$IP6ADDR"
     fi
 
+}
+
+ipv6_calc_install () {
+
+    SYSTYPE=$1
+
+    # This has not really been implemented. It's just an idea and more things
+    # need to change in order for this too work. e.g: pkg names, flags, etc ...
+    if [ "$SYSTYPE" = "debin" ] || [ "$SYSTYPE" = "ubuntu" ]; then
+        INSTOOL="apt-get"
+        INSTOOL_OPTS="-y --force-yes -qq"
+        INSTOOL_UPDATE="$INSTOOL -qq update"
+    elif [ "$SYSTYPE" = "suse" ] || [ "$SYSTYPE" = "opensuse" ]; then
+        INSTOOL="zypper"
+    fi
+
+    $INSTOOL $INSTOOL_OPTS install ipv6calc &> /dev/null
 }

@@ -152,7 +152,9 @@ main_banner
 if [ "$IPV6_SUPPORT" = "true" ]; then 
     source $MODULES/ipv6_config.sh
     ipv6_banner 
+    ipv6_calc_install "ubuntu"
     ipv6_check
+    sleep 2
 fi
 
 
