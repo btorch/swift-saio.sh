@@ -110,16 +110,16 @@ ipv6_replicator_patch (){
     PATCH2="$PATCHES/${PATCH_FILES[1]}"
 
     printf "\n\t - Applying IPv6 patches to 1.3 version \n"
-    patch $ORIG1 $PATCH1 
+    patch $ORIG1 $PATCH1 2>&1 >/dev/null
 
     if [ $? -eq 0 ]; then 
-        printf "\n\t\t 1. swift common db_replicator.py patch applied successfully "
+        printf "\n\t\t 1. swift common db_replicator.py patch applied successfully \n"
     fi
 
-    patch $ORIG2 $PATCH2
+    patch $ORIG2 $PATCH2 2>&1 >/dev/null
 
     if [ $? -eq 0 ]; then
-        printf "\n\t\t 2. swift obj replicator.py patch applied successfully "
+        printf "\n\t\t 2. swift obj replicator.py patch applied successfully \n"
     fi
 
 }

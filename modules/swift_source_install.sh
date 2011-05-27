@@ -61,6 +61,7 @@ source_install (){
     fi
 
 
+    printf "\n\n"
     if [ "$IPV6_SUPPORT" = "true" ]; then
         ipv6_replicator_patch      
     fi
