@@ -33,7 +33,7 @@ cat << USAGE
 
 Syntax
     sudo swift-saio.sh [-r swift_version]  
-    -r  The swift version to be installed (currently only 1.3.X)
+    -r  The swift version to be installed (1.2.x and 1.3.X only)
     -6  Setup using ipv6 addresses (only for 1.3 and above)
     -h  For this usage screen  
 

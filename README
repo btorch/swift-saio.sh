@@ -32,8 +32,10 @@
 
 
     PLEASE NOTE: 
-        * Currently only -r flag has been implemented 
+        * Currently -r flag accepts only 1.2 or 1.3 version .. soon I should have trunk support
+
+        * The -6 flag will setup a full IPv6 swift SAIO setup. It will only work if the machine/VM uses 
+          IPv6 global or ULA addresses. LocalLink addresses are not acceptable. 
 
         * This should be run on a clean/new virtual machine OR plain machine (not used for anything else) 
         
-        * USE IT AT YOUR OWN RISK 
