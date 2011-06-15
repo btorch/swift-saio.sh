@@ -33,10 +33,18 @@ swauth_setup (){
     echo -e "\t\t curl -i -H \"X-auth-user: $SWACCOUNT:$SWUSER\" -H \"X-auth-key: $SWPASS\" http://$PROXY_IPADDR:$PROXY_PORT/auth/v1.0 "
 
     printf "\n\t\t Internal Authentication command: \n"
-    echo -e "\t\t curl -i -H \"X-auth-user: $SWACCOUNT:$SWUSER\" -H \"X-auth-key: $SWPASS\" http://127.0.0.1:$PROXY_PORT/auth/v1.0 "
+    if [ "$IPV6_SUPPORT" = "true" ]; then
+        echo -e "\t\t curl -i -H \"X-auth-user: $SWACCOUNT:$SWUSER\" -H \"X-auth-key: $SWPASS\" http://[::1]:$PROXY_PORT/auth/v1.0 "
+    else
+        echo -e "\t\t curl -i -H \"X-auth-user: $SWACCOUNT:$SWUSER\" -H \"X-auth-key: $SWPASS\" http://127.0.0.1:$PROXY_PORT/auth/v1.0 "
+    fi    
 
     printf "\n\t\t Quick auth test: \n"
-    curl -i -H "X-auth-user: $SWACCOUNT:$SWUSER" -H "X-auth-key: $SWPASS" http://127.0.0.1:$PROXY_PORT/auth/v1.0
+    if [ "$IPV6_SUPPORT" = "true" ]; then
+        curl -i -H "X-auth-user: $SWACCOUNT:$SWUSER" -H "X-auth-key: $SWPASS" http://[::1]:$PROXY_PORT/auth/v1.0
+    else
+        curl -i -H "X-auth-user: $SWACCOUNT:$SWUSER" -H "X-auth-key: $SWPASS" http://127.0.0.1:$PROXY_PORT/auth/v1.0
+    fi
 
     printf "\n"
     printf "\n\t#############################################################"
