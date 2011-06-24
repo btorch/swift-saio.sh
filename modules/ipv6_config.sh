@@ -101,25 +101,26 @@ ipv6_calc_install () {
 
 ipv6_replicator_patch (){
 
-    PATCH_FILES=("swift_common_db_replicator.py.diff" "swift_obj_replicator.py.diff")
+    if [[ "$VERSION" = "1.3" ]]; then 
+        PATCH_FILES=("swift_common_db_replicator.py.diff" "swift_obj_replicator.py.diff")
 
-    ORIG1="/usr/local/lib/python2.6/dist-packages/swift-1.3.0-py2.6.egg/swift/common/db_replicator.py"
-    ORIG2="/usr/local/lib/python2.6/dist-packages/swift-1.3.0-py2.6.egg/swift/obj/replicator.py"
-    
-    PATCH1="$PATCHES/${PATCH_FILES[0]}"
-    PATCH2="$PATCHES/${PATCH_FILES[1]}"
+        ORIG1="/usr/local/lib/python2.6/dist-packages/swift-1.3.0-py2.6.egg/swift/common/db_replicator.py"
+        ORIG2="/usr/local/lib/python2.6/dist-packages/swift-1.3.0-py2.6.egg/swift/obj/replicator.py"
+        
+        PATCH1="$PATCHES/${PATCH_FILES[0]}"
+        PATCH2="$PATCHES/${PATCH_FILES[1]}"
 
-    printf "\n\t - Applying IPv6 patches to 1.3 version \n"
-    patch $ORIG1 $PATCH1 2>&1 >/dev/null
+        printf "\n\t - Applying IPv6 patches to 1.3 version \n"
+        patch $ORIG1 $PATCH1 2>&1 >/dev/null
 
-    if [ $? -eq 0 ]; then 
-        printf "\n\t\t 1. swift common db_replicator.py patch applied successfully \n"
-    fi
+        if [ $? -eq 0 ]; then 
+            printf "\n\t\t 1. swift common db_replicator.py patch applied successfully \n"
+        fi
 
-    patch $ORIG2 $PATCH2 2>&1 >/dev/null
+        patch $ORIG2 $PATCH2 2>&1 >/dev/null
 
-    if [ $? -eq 0 ]; then
-        printf "\n\t\t 2. swift obj replicator.py patch applied successfully \n"
-    fi
-
+        if [ $? -eq 0 ]; then
+            printf "\n\t\t 2. swift obj replicator.py patch applied successfully \n"
+        fi
+    fi        
 }
