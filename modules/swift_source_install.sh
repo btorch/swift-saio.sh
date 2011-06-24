@@ -16,7 +16,7 @@
 # SWIFT SOURCE INSTALL 
 ###########################
 
-source_install (){
+swift_source_install (){
     SWIFT_TEMP="swift-src"
     cd $CURDIR
 

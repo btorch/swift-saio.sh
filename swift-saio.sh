@@ -182,10 +182,18 @@ install_python_deps "ubuntu"
 
 
 ########################
-# SWIFT SOURCE INSTALL 
+# SWIFT INSTALL 
 ########################
 source $MODULES/swift_source_install.sh
-source_install
+swift_source_install
+
+
+
+########################
+# SWAUTH INSTALL 
+########################
+source $MODULES/swauth_source_install.sh
+swauth_source_install
 
 
 
