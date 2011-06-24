@@ -20,7 +20,8 @@ fi
 # DEFAULTS
 PYTHON_VER="2.6"
 IPV6_SUPPORT="false"
-VERSION="1.3"
+CURDIR=`pwd`
+#VERSION="1.3"
 
 
 # ARGUMENTS 
@@ -47,14 +48,14 @@ do
     case $opts in 
         r) 
             VERSION="${OPTARG}"
-            VER_REGEX="^1\.[23]"
+            VER_REGEX="^1\.[2-4]\.[0-9]"
             if [[ ! "$VERSION" =~ $VER_REGEX ]]; then 
-                printf "\t Sorry, only version 1.2 and 1.3 currently supported \n"
+                printf "\t Sorry, only version 1.2, 1.3 and 1.4 currently supported \n"
                 exit 1 
             fi
             ;;
         6)
-            VER_REGEX="^1\.[3-9]"
+            VER_REGEX="^1\.[3-9]\.[0-9]"
             if [[ ! "$VERSION" =~ $VER_REGEX ]]; then
                 printf "\t Sorry, IPv6 only supported on version 1.3 and above \n"
                 exit 1 
@@ -72,20 +73,11 @@ do
 done
 
 
-
-# INITIAL VARIABLES
-CURDIR=`pwd`
-TEMPLATES="./etc/swift-$VERSION"
-PATCHES="$CURDIR/patches"
+################
+# INITIALIZING 
+################
 CFG_FILE="$CURDIR/swift-saio.cfg"
 MODULES="$CURDIR/modules"
-
-if [ "$IPV6_SUPPORT" = "false" ];then 
-    BIND_IP="0.0.0.0"
-elif [ "$IPV6_SUPPORT" = "true" ];then
-    BIND_IP="::"
-fi
-
 
 # SOURCE CONFIGURATION FILE
 if [ ! -e $CFG_FILE ]; then 
@@ -95,6 +87,21 @@ else
     #printf "\n\t - Sourcing configuration file "
     source $CFG_FILE
 fi
+
+if [[ -z $VERSION ]]; then 
+    VERSION="$SWIFT_VER"
+fi
+
+TEMPLATES="./etc/swift-$VERSION"
+PATCHES="$CURDIR/patches/$VERSION"
+
+if [ "$IPV6_SUPPORT" = "false" ];then 
+    BIND_IP="0.0.0.0"
+elif [ "$IPV6_SUPPORT" = "true" ];then
+    BIND_IP="::"
+fi
+
+
 
 
 
@@ -140,7 +147,7 @@ main_banner (){
 
 
 ################## 
-#   POSSIBLE MAIN
+#      MAIN
 ##################
 
 # Call Intro Banner
