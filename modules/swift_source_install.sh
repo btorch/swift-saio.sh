@@ -30,7 +30,11 @@ source_install (){
     cd $SWIFT_TEMP
 
     printf "\t\t Downloading swift $VERSION source code \n"
-    BZR=`bzr branch -q lp:swift/$VERSION &> /dev/null`
+    if [[ $VERSION = "1.4.1" ]]; then 
+        BZR=`bzr branch -r 312 lp:swift/diablo 1.4.1 &> /dev/null`
+    else
+        BZR=`bzr branch -q lp:swift/$VERSION &> /dev/null`
+    fi    
 
     #echo -e "$BZR " | sed 's/^/\t\t/'
 
