@@ -21,7 +21,6 @@ fi
 PYTHON_VER="2.6"
 IPV6_SUPPORT="false"
 CURDIR=`pwd`
-#VERSION="1.3"
 
 
 # ARGUMENTS 
@@ -48,14 +47,14 @@ do
     case $opts in 
         r) 
             VERSION="${OPTARG}"
-            VER_REGEX="^1\.[2-4]\.[0-9]"
+            VER_REGEX="^1\\.[3-9]\\.[0-9]$"
             if [[ ! "$VERSION" =~ $VER_REGEX ]]; then 
                 printf "\t Sorry, only version 1.2, 1.3 and 1.4 currently supported \n"
                 exit 1 
             fi
             ;;
         6)
-            VER_REGEX="^1\.[3-9]\.[0-9]"
+            VER_REGEX="^1\\.[3-9]\\.[0-9]$"
             if [[ ! "$VERSION" =~ $VER_REGEX ]]; then
                 printf "\t Sorry, IPv6 only supported on version 1.3 and above \n"
                 exit 1 
