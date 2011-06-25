@@ -17,11 +17,31 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 
-# DEFAULTS
+##############################
+# INITIALIZING SOME VARIABLE
+##############################
 PYTHON_VER="2.6"
+BIND_IP="0.0.0.0"
 IPV6_SUPPORT="false"
 CURDIR=`pwd`
+CFG_FILE="$CURDIR/swift-saio.cfg"
+MODULES="$CURDIR/modules"
 
+# SOURCE CONFIGURATION FILE
+if [ ! -e $CFG_FILE ]; then 
+    printf "\n\t No configuration file found (\033[1;31;40m mmissing: %s \033[0m)\n" "$CFG_FILE" 
+    exit 1
+else
+    #printf "\n\t - Sourcing configuration file "
+    source $CFG_FILE
+fi
+
+if [[ -z $VERSION ]]; then 
+    VERSION="$SWIFT_VER"
+fi
+
+TEMPLATES="./etc/swift-$VERSION"
+PATCHES="$CURDIR/patches/$VERSION"
 
 # ARGUMENTS 
 NUMBER_OF_ARGS=$#
@@ -60,6 +80,7 @@ do
                 exit 1 
             else
                 IPV6_SUPPORT="true"
+                BIND_IP="::"
             fi
             ;;
         h)
@@ -70,37 +91,6 @@ do
             ;;
     esac     
 done
-
-
-################
-# INITIALIZING 
-################
-CFG_FILE="$CURDIR/swift-saio.cfg"
-MODULES="$CURDIR/modules"
-
-# SOURCE CONFIGURATION FILE
-if [ ! -e $CFG_FILE ]; then 
-    printf "\n\t No configuration file found (\033[1;31;40m mmissing: %s \033[0m)\n" "$CFG_FILE" 
-    exit 1
-else
-    #printf "\n\t - Sourcing configuration file "
-    source $CFG_FILE
-fi
-
-if [[ -z $VERSION ]]; then 
-    VERSION="$SWIFT_VER"
-fi
-
-TEMPLATES="./etc/swift-$VERSION"
-PATCHES="$CURDIR/patches/$VERSION"
-
-if [ "$IPV6_SUPPORT" = "false" ];then 
-    BIND_IP="0.0.0.0"
-elif [ "$IPV6_SUPPORT" = "true" ];then
-    BIND_IP="::"
-fi
-
-
 
 
 
