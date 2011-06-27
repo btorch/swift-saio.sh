@@ -53,7 +53,7 @@ cat << USAGE
 
 Syntax
     sudo swift-saio.sh [-r swift_version]  
-    -r  The swift version to be installed (1.2.x and 1.3.X only)
+    -r  The swift version to be installed 
     -6  Setup using ipv6 addresses (only for 1.3 and above)
     -h  For this usage screen  
 
@@ -67,14 +67,14 @@ do
     case $opts in 
         r) 
             VERSION="${OPTARG}"
-            VER_REGEX="^1\\.[3-9]\\.[0-9]$"
+            VER_REGEX="^1\.[2-9]\.*([0-9])*$"
             if [[ ! "$VERSION" =~ $VER_REGEX ]]; then 
                 printf "\t Sorry, only version 1.2, 1.3 and 1.4 currently supported \n"
                 exit 1 
             fi
             ;;
         6)
-            VER_REGEX="^1\\.[3-9]\\.[0-9]$"
+            VER_REGEX="^1\.[3-9]\.*([0-9])*$"
             if [[ ! "$VERSION" =~ $VER_REGEX ]]; then
                 printf "\t Sorry, IPv6 only supported on version 1.3 and above \n"
                 exit 1 
