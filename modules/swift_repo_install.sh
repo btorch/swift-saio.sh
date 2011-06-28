@@ -23,8 +23,8 @@ swift_repo_install (){
     printf "\n\t - Starting swift github debian repository installation process \n"
     apt-get update -qq
 
-    printf "\t\t Installing all swift $VERSION service(s) from github repo"
-    apt-get install swift swift-account swift-container swift-object swift-proxy -qqy --force-yes
+    printf "\t\t Installing all swift $VERSION service(s) from github repo "
+    apt-get install swift swift-account swift-container swift-object swift-proxy -y -qq --force-yes &>/dev/null 
 
     CODE=$?
     if [ $CODE -eq 0 ];then
