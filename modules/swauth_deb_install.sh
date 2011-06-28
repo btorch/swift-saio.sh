@@ -53,7 +53,7 @@ swauth_deb_install (){
 
         sleep 2
 
-        printf "\n\t\t Installing swauth .deb packages  \n"
+        printf "\n\n\t\t Installing swauth .deb packages  \n"
         dpkg -i `basename $SWAUTH` &>/dev/null
         dpkg -i `basename $SWAUTH_DOC` &>/dev/null
 
