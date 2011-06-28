@@ -55,6 +55,7 @@ Syntax
     sudo swift-saio.sh [-r swift_version]  
     -r  The swift version to be installed 
     -6  Setup using ipv6 addresses (only for 1.3 and above)
+    -p  Use the git-hub crashsite packages 
     -h  For this usage screen  
 
 USAGE
@@ -62,7 +63,7 @@ exit 1
 }
 
 
-while getopts "r:6h" opts
+while getopts "r:6ph" opts
 do 
     case $opts in 
         r) 
@@ -82,6 +83,9 @@ do
                 IPV6_SUPPORT="true"
                 BIND_IP="::"
             fi
+            ;;
+        p)
+            REPO_INSTALL="true"
             ;;
         h)
             usage_display
@@ -165,25 +169,35 @@ install_non_python_deps "ubuntu"
 ####################################
 #  PYTHON DEPENDENCIES INSTALL  
 ####################################
-source $MODULES/python_deps_install.sh
-install_python_deps "ubuntu"
-
+if [[ ! $REPO_INSTALL = "true" ]]; then 
+    source $MODULES/python_deps_install.sh
+    install_python_deps "ubuntu"
+fi
 
 
 ########################
 # SWIFT INSTALL 
 ########################
-source $MODULES/swift_source_install.sh
-swift_source_install
+if [[ $REPO_INSTALL = "true" ]]; then 
+    source $MODULES/swift_repo_install.sh
+    swift_repo_install
+elif [[ ! $REPO_INSTALL = "true" ]]; then     
+    source $MODULES/swift_source_install.sh
+    swift_source_install
+fi     
 
 
 
 ########################
 # SWAUTH INSTALL 
 ########################
-source $MODULES/swauth_source_install.sh
-swauth_source_install
-
+if [[ $REPO_INSTALL = "true" ]]; then
+    source $MODULES/swauth_deb_install.sh
+    swauth_deb_install
+elif [[ ! $REPO_INSTALL = "true" ]]; then
+    source $MODULES/swauth_source_install.sh
+    swauth_source_install
+fi 
 
 
 #########################
