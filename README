@@ -27,7 +27,8 @@
         - ./swift-saio.sh -r VERSION_HERE
 
         *** If -r flag is not specified it will default to 1.4.1 version 
-
+        *** If -p (for packaging installation) is not specified then it will install from source
+            Packages are only built for Ubuntu 10.04 LTS 
 
     PLEASE NOTE: 
 
