@@ -16,7 +16,7 @@
 
 swift_repo_install (){
 
-    SWIFT_REPO="deb http://crashsite.github.com/swift_debian/lucid lucid main"
+    SWIFT_REPO="deb http://crashsite.github.com/swift_debian/lucid-$VERSION lucid main"
     SWIFT_APT_LIST="/etc/apt/sources.list.d/swift_github.list"
     echo $SWIFT_REPO >$SWIFT_APT_LIST
 
