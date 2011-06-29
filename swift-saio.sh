@@ -48,6 +48,8 @@ NUMBER_OF_ARGS=$#
 ARG_SARRAY=("$@")
 ARGS=$@
 
+
+
 usage_display (){
 cat << USAGE
 
@@ -55,7 +57,6 @@ Syntax
     sudo swift-saio.sh [-r swift_version]  
     -r  The swift version to be installed 
     -6  Setup using ipv6 addresses (only for 1.3 and above)
-    -p  Use the git-hub crashsite packages 
     -h  For this usage screen  
 
 USAGE
@@ -63,7 +64,7 @@ exit 1
 }
 
 
-while getopts "r:6ph" opts
+while getopts "r:6h" opts
 do 
     case $opts in 
         r) 
@@ -83,9 +84,6 @@ do
                 IPV6_SUPPORT="true"
                 BIND_IP="::"
             fi
-            ;;
-        p)
-            REPO_INSTALL="true"
             ;;
         h)
             usage_display
@@ -139,12 +137,28 @@ main_banner (){
 }   
 
 
+check_version () {
+    if [[ "$VERSION" =~ "^1\.2" ]]; then
+        if [[ $SWIFT_DEPLOYMENT = "package" ]]; then 
+            printf "\n\t - Sorry only Swift Version 1.4.1 allows package installation \n"
+            exit 1
+        fi
+    elif [[ "$VERSION" =~ "^1\.3" ]]; then
+        if [[ $SWIFT_DEPLOYMENT = "package" ]]; then
+            printf "\n\t - Sorry only Swift Version 1.4.1 allows package installation \n"
+            exit 1
+        fi        
+    fi
+}
+
+
 ################## 
 #      MAIN
 ##################
 
 # Call Intro Banner
 main_banner
+check_version
 
 
 ####################################
@@ -169,7 +183,7 @@ install_non_python_deps "ubuntu"
 ####################################
 #  PYTHON DEPENDENCIES INSTALL  
 ####################################
-if [[ ! $REPO_INSTALL = "true" ]]; then 
+if [[ $SWIFT_DEPLOYMENT = "source" ]]; then 
     source $MODULES/python_deps_install.sh
     install_python_deps "ubuntu"
 fi
@@ -178,10 +192,10 @@ fi
 ########################
 # SWIFT INSTALL 
 ########################
-if [[ $REPO_INSTALL = "true" ]]; then 
+if [[ $SWIFT_DEPLOYMENT = "package" ]]; then 
     source $MODULES/swift_repo_install.sh
     swift_repo_install
-elif [[ ! $REPO_INSTALL = "true" ]]; then     
+elif [[ $SWIFT_DEPLOYMENT = "source" ]]; then     
     source $MODULES/swift_source_install.sh
     swift_source_install
 fi     
@@ -191,10 +205,10 @@ fi
 ########################
 # SWAUTH INSTALL 
 ########################
-if [[ $REPO_INSTALL = "true" ]]; then
+if [[ $SWIFT_DEPLOYMENT = "package" ]]; then
     source $MODULES/swauth_deb_install.sh
     swauth_deb_install
-elif [[ ! $REPO_INSTALL = "true" ]]; then
+elif [[ $SWIFT_DEPLOYMENT = "source" ]]; then
     source $MODULES/swauth_source_install.sh
     swauth_source_install
 fi 
