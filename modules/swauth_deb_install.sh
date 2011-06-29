@@ -1,10 +1,10 @@
 #
 #   Author: Marcelo Martins (btorch AT gmail.com)
-#   Created: 2011/05/04
+#   Created: 2011/06/26
 #
 #   Info:
 #       This a script that is imported (sourced) by the main swift-saio.sh in order 
-#       to install swift from source retrieved from launchpad.
+#       to install swauth from .deb packages retrieved from github.
 #       Created it as a separate file so that it can be re-used or extended wihout 
 #       impacting the main script.
 #
