@@ -1,7 +1,11 @@
 
 - INFO
     - Tested under 10.04 TLS ubuntu:
-        1.2, 1.33, 1.4.1
+        1.2, 1.3, 1.4.1
+
+    - PLEASE NOTE: 
+        The latest master version will default to installing using github packages for swift
+
 
 - INSTRUCTIONS 
 
@@ -27,8 +31,8 @@
         - ./swift-saio.sh -r VERSION_HERE
 
         *** If -r flag is not specified it will default to 1.4.1 version 
-        *** If -p (for packaging installation) is not specified then it will install from source
-            Packages are only built for Ubuntu 10.04 LTS 
+        *** SWIFT_DEPLOYMENT variable within the .cfg file default to package installation. Packages are only built for Ubuntu 10.04 LTS (lucid)
+        *** If you would like to install from source please change SWIFT_DEPLOYMENT to "source" instead of "package"
 
     PLEASE NOTE: 
 
