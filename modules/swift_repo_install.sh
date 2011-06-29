@@ -1,6 +1,6 @@
 #
 #   Author: Marcelo Martins (btorch AT gmail.com)
-#   Created: 2011/05/04
+#   Created: 2011/06/24
 #
 #   Info:
 #       This a script that is imported (sourced) by the main swift-saio.sh in order 
@@ -11,7 +11,7 @@
 #
 
 ###########################
-# SWIFT SOURCE INSTALL 
+# SWIFT REPO INSTALL 
 ###########################
 
 swift_repo_install (){
