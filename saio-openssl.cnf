@@ -1,0 +1,13 @@
+[ req ]
+prompt                  = no
+distinguished_name      = server_distinguished_name
+
+[ server_distinguished_name ]
+commonName              = saio.mydomain.com
+stateOrProvinceName     = CE
+localityName            = Fortaleza
+countryName             = BR
+emailAddress            = root@lovalhost
+organizationName        = None
+organizationalUnitName  = None
+
