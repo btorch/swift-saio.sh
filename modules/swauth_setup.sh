@@ -22,32 +22,35 @@ swauth_setup (){
     SWAUTH_ADD=`which swauth-add-user`
     SWAUTH_LIST=`which swauth-list`
 
-    printf "\n\t - SWAuth account prep "
-    printf "\n\t\t Setting up swiftops account "
-    $SWAUTH_PREP -K $SWAUTHKEY_VALUE
-    $SWAUTH_ADD -K $SWAUTHKEY_VALUE -a $SWACCOUNT $SWUSER $SWPASS
-    #$SWAUTH_LIST -K $SWAUTHKEY_VALUE $SWACCOUNT $SWUSER
-
-    printf "\n\t\t Public/LocalNet Authentication command: \n"
-    if [ "$IPV6_SUPPORT" = "true" ]; then
-        echo -e "\t\t curl -gi -H \"X-auth-user: $SWACCOUNT:$SWUSER\" -H \"X-auth-key: $SWPASS\" http://[$PROXY_IPADDR]:$PROXY_PORT/auth/v1.0 "
-    else    
-        echo -e "\t\t curl -i -H \"X-auth-user: $SWACCOUNT:$SWUSER\" -H \"X-auth-key: $SWPASS\" http://$PROXY_IPADDR:$PROXY_PORT/auth/v1.0 "
-    fi
-
-    printf "\n\t\t Internal Authentication command: \n"
-    if [ "$IPV6_SUPPORT" = "true" ]; then
-        echo -e "\t\t curl -gi -H \"X-auth-user: $SWACCOUNT:$SWUSER\" -H \"X-auth-key: $SWPASS\" http://[::1]:$PROXY_PORT/auth/v1.0 "
+    if [[ $PROXY_SSL_ENABLED = "true" ]]; then
+        PROTOCOL="https"
     else
-        echo -e "\t\t curl -i -H \"X-auth-user: $SWACCOUNT:$SWUSER\" -H \"X-auth-key: $SWPASS\" http://127.0.0.1:$PROXY_PORT/auth/v1.0 "
+        PROTOCOL="http"
     fi    
 
-    printf "\n\t\t Quick auth test: \n"
     if [ "$IPV6_SUPPORT" = "true" ]; then
-        curl -gi -H "X-auth-user: $SWACCOUNT:$SWUSER" -H "X-auth-key: $SWPASS" http://[::1]:$PROXY_PORT/auth/v1.0
+        PRIV_AUTH_URL="$PROTOCOL://[::1]:$PROXY_PORT/auth/"
+        PUB_AUTH_URL="$PROTOCOL://[$PROXY_IPADDR]:$PROXY_PORT/auth/"
     else
-        curl -i -H "X-auth-user: $SWACCOUNT:$SWUSER" -H "X-auth-key: $SWPASS" http://127.0.0.1:$PROXY_PORT/auth/v1.0
+        PRIV_AUTH_URL="$PROTOCOL://127.0.0.1:$PROXY_PORT/auth/"
+        PUB_AUTH_URL="$PROTOCOL://$PROXY_IPADDR:$PROXY_PORT/auth/"
     fi
+
+
+    printf "\n\t - SWAuth account prep "
+    printf "\n\t\t Setting up swiftops account "
+
+    $SWAUTH_PREP -K $SWAUTHKEY_VALUE -A $PRIV_AUTH_URL  
+    $SWAUTH_ADD -K $SWAUTHKEY_VALUE -A $PRIV_AUTH_URL -a $SWACCOUNT $SWUSER $SWPASS
+
+    printf "\n\t\t Public/LocalNet Authentication command: \n"
+    echo -e "\t\t curl -gik -H \"X-auth-user: $SWACCOUNT:$SWUSER\" -H \"X-auth-key: $SWPASS\" $PUB_AUTH_URL"v1.0" "
+
+    printf "\n\t\t Internal Authentication command: \n"
+    echo -e "\t\t curl -gik -H \"X-auth-user: $SWACCOUNT:$SWUSER\" -H \"X-auth-key: $SWPASS\" $PRIV_AUTH_URL"v1.0" "
+
+    printf "\n\t\t Quick auth test: \n\n"
+    curl -sgik -H "X-auth-user: $SWACCOUNT:$SWUSER" -H "X-auth-key: $SWPASS" $PRIV_AUTH_URL"v1.0" | sed 's/^/\t\t/g'
 
     printf "\n"
     printf "\n\t#############################################################"
