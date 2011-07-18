@@ -27,7 +27,7 @@ swauth_deb_install (){
         SWAUTH_TEMP="swauth-src"
         cd $CURDIR
 
-        printf "\n\t - Starting swauth debian pkg installation process \n"
+        printf "\n\n\t - Starting swauth debian pkg installation process \n"
         if [ ! -d ./$SWAUTH_TEMP ]; then
             mkdir $SWAUTH_TEMP
         fi
@@ -59,7 +59,7 @@ swauth_deb_install (){
 
         CODE=$?
         if [ $CODE -eq 0 ];then
-            printf "\n\t\t -> Install sucessful "
+            printf "\t\t -> Install sucessful "
         else
             printf "\t\t\t -> \033[1;31;40m Error found (check log file)  \033[0m\n\n"
             exit 1
