@@ -35,6 +35,6 @@ swift_syslog_ng_setup (){
     
     sleep 2
 
-exit 0 
+return 0
 }
 
