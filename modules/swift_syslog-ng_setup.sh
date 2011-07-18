@@ -31,7 +31,7 @@ swift_syslog_ng_setup (){
     cp $SYSLOGNG/syslog-ng.conf.tmpl /etc/syslog-ng/syslog-ng.conf
 
     printf "\t\t - Restarting syslog-ng"
-    /etc/init.d/syslog-ng restart | sed 's/^/\t\t/g'
+    /etc/init.d/syslog-ng restart &>/dev/null
     
     sleep 2
 
