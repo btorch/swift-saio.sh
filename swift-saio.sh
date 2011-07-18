@@ -26,6 +26,7 @@ IPV6_SUPPORT="false"
 CURDIR=`pwd`
 CFG_FILE="$CURDIR/swift-saio.cfg"
 MODULES="$CURDIR/modules"
+SYSLOGNG="$CURDIR/etc/syslog-ng"
 
 # SOURCE CONFIGURATION FILE
 if [ ! -e $CFG_FILE ]; then 
@@ -293,6 +294,9 @@ setup_proxy
 ###############
 source $MODULES/final_steps.sh
 final_steps
+
+source $MODULES/swift_syslog-ng_setup.sh
+swift_syslog_ng_setup
 
 
 ##################
