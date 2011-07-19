@@ -1,4 +1,10 @@
 
+swift-saio.sh (2011-07-18, ver=master)
+
+    * Added syslog-ng configuration that includes separation of swift logging
+    * Also modified the log_facility for each service in order for the above to work
+    * Fixed some minor typos, identation and some other cosmetic things
+
 swift-saio.sh (2011-07-13, ver=master)
 
     * Added support for SSL for the proxy 
