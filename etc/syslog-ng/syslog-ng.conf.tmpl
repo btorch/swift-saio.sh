@@ -186,22 +186,22 @@ filter f_uucp { facility(uucp); };
 
 
 # FOR OPENSTACK-SWIFT LOCAL
-filter f_local0 { facility(local1) and level(info); };
+filter f_local0 { facility(local0) and level(info); };
 filter f_local1 { facility(local1) and level(info); };
 filter f_local2 { facility(local2) and level(info); };
-filter f_local3 { facility(local1) and level(info); };
-filter f_local4 { facility(local2) and level(info); };
-filter f_local5 { facility(local1) and level(info); };
-filter f_local6 { facility(local2) and level(info); };
-filter f_local7 { facility(local2) and level(info); };
-filter f_local0_err { facility(local1) and not level(info); };
+filter f_local3 { facility(local3) and level(info); };
+filter f_local4 { facility(local4) and level(info); };
+filter f_local5 { facility(local5) and level(info); };
+filter f_local6 { facility(local6) and level(info); };
+filter f_local7 { facility(local7) and level(info); };
+filter f_local0_err { facility(local0) and not level(info); };
 filter f_local1_err { facility(local1) and not level(info); };
 filter f_local2_err { facility(local2) and not level(info); };
-filter f_local3_err { facility(local1) and not level(info); };
-filter f_local4_err { facility(local2) and not level(info); };
-filter f_local5_err { facility(local1) and not level(info); };
-filter f_local6_err { facility(local2) and not level(info); };
-filter f_local7_err { facility(local1) and not level(info); };
+filter f_local3_err { facility(local3) and not level(info); };
+filter f_local4_err { facility(local4) and not level(info); };
+filter f_local5_err { facility(local5) and not level(info); };
+filter f_local6_err { facility(local6) and not level(info); };
+filter f_local7_err { facility(local7) and not level(info); };
 
 
 # some filters to select messages of priority greater or equal to info, warn,
