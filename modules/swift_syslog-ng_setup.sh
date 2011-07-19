@@ -27,10 +27,10 @@ swift_syslog_ng_setup (){
     printf "\t\t - Installing syslog-ng \n"
     apt-get install syslog-ng -Vy &>/dev/null 
 
-    printf "\t\t - Setting up syslog-ng.conf"
+    printf "\t\t - Setting up syslog-ng.conf \n"
     cp $SYSLOGNG/syslog-ng.conf.tmpl /etc/syslog-ng/syslog-ng.conf
 
-    printf "\t\t - Restarting syslog-ng"
+    printf "\t\t - Restarting syslog-ng \n\n"
     /etc/init.d/syslog-ng restart &>/dev/null
     
     sleep 2
