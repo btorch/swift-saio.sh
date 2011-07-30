@@ -28,7 +28,7 @@ swift_repo_install (){
 
     CODE=$?
     if [ $CODE -eq 0 ];then
-        printf "\n\t\t -> Install sucessful "
+        printf "\n\t\t -> Install sucessful \n"
     else
         printf "\t\t\t -> \033[1;31;40m Error found (check log file)  \033[0m\n\n"
         exit 1
