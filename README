@@ -1,7 +1,7 @@
 
 - INFO
     - Tested under 10.04 LTS & 10.10 ubuntu w/python 2.6:
-        1.2, 1.3, 1.4.1
+        1.2, 1.3, 1.4.1+
 
     - PLEASE NOTE: 
         The latest master version will default to installing using github packages for swift
