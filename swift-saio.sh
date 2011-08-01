@@ -41,7 +41,8 @@ if [[ -z $VERSION ]]; then
     VERSION="$SWIFT_VER"
 fi
 
-TEMPLATES="./etc/swift-$VERSION"
+TEMPLATE_VER=`echo ${VERSION:0:3}`".x"
+TEMPLATES="./etc/swift-$TEMPLATE_VER"
 PATCHES="$CURDIR/patches/$VERSION"
 
 # ARGUMENTS 
