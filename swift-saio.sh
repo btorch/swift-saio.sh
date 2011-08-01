@@ -310,6 +310,13 @@ start_services
 ###############################
 # SETUP SWAUTH & ADMIN ACCOUNT
 ###############################
+source $MODULES/swift_dispersion_reporting.sh
+dispersion_setup
+
+
+###############################
+# SETUP SWAUTH & ADMIN ACCOUNT
+###############################
 source $MODULES/swauth_setup.sh
 swauth_setup
 
