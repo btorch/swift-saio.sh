@@ -113,6 +113,7 @@ destination df_uucp { file("/var/log/uucp.log"); };
 # - PROXY
 destination df_local0 { file("/var/log/swift/proxy.log"); };
 destination df_local0_err { file("/var/log/swift/proxy.error"); };
+destination df_local0_hourly { file("/var/log/swift/hourly/$YEAR$MONTH$DAY$HOUR"); };
 destination df_local1 { file("/var/log/swift/proxy-jobs.log"); };
 destination df_local1_err { file("/var/log/swift/proxy-jobs.error"); };
 
@@ -402,6 +403,7 @@ log {
         source(s_all);
         filter(f_local0);
         destination(df_local0);
+        destination(df_local0_hourly);
 
 };
 # local0.error                        /var/log/swift/proxy.error
