@@ -22,7 +22,7 @@ dispersion_setup () {
     printf "\n\t - Copying dispersion configuration file "
     printf "\n\t\t In order to run a dispersioin test just run the following commands"
     printf "\n\t\t   1) swift-dispersion-populate "
-    printf "\n\t\t   2) swift-dispersion-report "
+    printf "\n\t\t   2) swift-dispersion-report \n\n"
 
 
     cp $TEMPLATES/dispersion.conf.tmpl  /etc/swift/dispersion.conf
