@@ -3,8 +3,8 @@
 [log-processor]
 swift_account = STATSHASH
 container_name = log_processing_data
-proxy_server_conf = /etc/swift/proxy-server.conf
-log_facility = LOG_LOCAL1
+proxy_server_conf = /etc/swift/proxy-server/proxy-server.conf
+log_facility = LOG_LOCAL0
 log_level = INFO
 # lookback_hours = 120
 # lookback_window = 120
@@ -44,7 +44,7 @@ mount_check = MOUNT_CHECK_BOOLEAN_VALUE
 # user = swift
 
 [log-processor-container-stats]
-log_dir = /var/log/swift/stats
+log_dir = /var/log/swift/stats/
 swift_account = STATSHASH
 container_name = container_stats
 # new_log_cutoff = 7200
