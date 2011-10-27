@@ -1,3 +1,15 @@
+swift-saio.sh (2011-10-27, ver=master)
+
+    * Added python-slogging support for 1.4.2 and above 
+    * Also added the cronjobs for all the python-slogging needs
+    * More information on : https://github.com/btorch/slogging/blob/master/doc/source/overview_stats.rst  
+
+swift-saio.sh (2011-08-02, ver=master)
+
+    * Added swift stats logging for 1.4.1 and above 
+    * No cronjobs for the stats logging yet, users should run it manually for testing
+    * Setting up syslog-ng to also collect stats logging informartion 
+
 swift-saio.sh (2011-07-31, ver=master)
 
     * Added dispersion reporting configuration for 1.4.1 and above 

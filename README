@@ -4,7 +4,9 @@
         1.2, 1.3, 1.4.1+
 
     - PLEASE NOTE: 
-        The latest master version will default to installing using github packages for swift
+        * The latest master version will default to installing using github packages for swift
+        * Read the ChangeLog file for more information
+        * swift logging is now available
 
 
 - INSTRUCTIONS 

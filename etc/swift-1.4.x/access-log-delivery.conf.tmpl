@@ -1,0 +1,19 @@
+[access-log-delivery]
+swift_account = STATSHASH
+container_name = access_log_delivery_data
+proxy_server_conf = /etc/swift/proxy-server/proxy-server.conf
+log_facility = LOG_LOCAL0
+log_level = INFO
+# lookback_hours = 120
+# lookback_window = 120
+# user = swift
+# processed_files_object_name = processed_files.pickle.gz
+# frequency = 3600
+target_container = .ACCESS_LOGS
+log_source_account = STATSHASH
+log_source_container_name = log_data
+metadata_key = x-container-meta-access-log-delivery
+memcache_servers = 127.0.0.1:11211
+# worker_count = 1
+# server_name = proxy-server
+working_dir = /var/log/swift/access-log-delivery 
