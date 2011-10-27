@@ -308,7 +308,7 @@ start_services
 
 
 ###############################
-# SETUP SWAUTH & ADMIN ACCOUNT
+# SETUP DISPERSION TOOL 
 ###############################
 source $MODULES/swift_dispersion_reporting.sh
 dispersion_setup
@@ -319,6 +319,12 @@ dispersion_setup
 ###############################
 source $MODULES/swauth_setup.sh
 swauth_setup
+sleep 5
 
+###############################
+# SETUP SLOGGING 
+###############################
+source $MODULES/swift_stats_logging_setup.sh
+slogging_setup
 
 exit 0 
