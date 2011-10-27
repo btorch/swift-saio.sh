@@ -44,6 +44,21 @@ slogging_setup () {
     ACCESS_LOG_DELIVERY_CRON="50 * * * * swift swift-access-log-delivery /etc/swift/access-log-delivery.conf  2> /dev/null"
 
 
+    if [[ $PROXY_SSL_ENABLED = "true" ]]; then
+        PROTOCOL="https"
+    else
+        PROTOCOL="http"
+    fi
+
+    if [ "$IPV6_SUPPORT" = "true" ]; then
+        PRIV_AUTH_URL="$PROTOCOL://[::1]:$PROXY_PORT/auth/"
+        PUB_AUTH_URL="$PROTOCOL://[$PROXY_IPADDR]:$PROXY_PORT/auth/"
+    else
+        PRIV_AUTH_URL="$PROTOCOL://127.0.0.1:$PROXY_PORT/auth/"
+        PUB_AUTH_URL="$PROTOCOL://$PROXY_IPADDR:$PROXY_PORT/auth/"
+    fi
+
+
     printf "\n\t - Setting up swift slogging"
 
     # If swift version is 1.4.2 or greater then slogging is now a seperate project on github
