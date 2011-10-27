@@ -86,7 +86,7 @@ slogging_setup () {
         
         CODE=$?
         if [ $CODE -eq 0 ];then
-            printf "\t\t  -> Install sucessful \n"
+            printf "\n\t\t  -> Install sucessful \n"
         else
             printf "\t\t\t -> \033[1;31;40m Error found (check log file)  \033[0m\n\n"
             exit 1
@@ -122,7 +122,7 @@ slogging_setup () {
         sed -i "s/MOUNT_CHECK_BOOLEAN_VALUE/$MOUNT_CHECK/g"  /etc/swift/access-log-delivery.conf
 
         printf "\n\t\t - Setting up Access log delivery related cronjobs "
-        printf "\n\t\t   Adding : $ACCESS_LOG_DELIVERY"
+        printf "\n\t\t   Adding : $ACCESS_LOG_DELIVERY \n"
         echo "$ACCESS_LOG_DELIVERY_CRON" >$ACCESS_LOG_DELIVERY
 
         printf "\n\t\t - Reloading crond \n\n"

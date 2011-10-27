@@ -38,10 +38,15 @@ swauth_setup (){
 
 
     printf "\n\t - SWAuth account prep "
-    printf "\n\t\t Setting up swiftops account "
+    printf "\n\t\t Setting up swiftops account \n\n"
 
     $SWAUTH_PREP -K $SWAUTHKEY_VALUE -A $PRIV_AUTH_URL  
     $SWAUTH_ADD -K $SWAUTHKEY_VALUE -A $PRIV_AUTH_URL -a $SWACCOUNT $SWUSER $SWPASS
+
+return 0 
+}
+
+swauth_info() {
 
     printf "\n\t\t Public/LocalNet Authentication command: \n"
     echo -e "\t\t curl -gik -H \"X-auth-user: $SWACCOUNT:$SWUSER\" -H \"X-auth-key: $SWPASS\" $PUB_AUTH_URL"v1.0" "
@@ -56,7 +61,6 @@ swauth_setup (){
     printf "\n\t#############################################################"
     printf "\n\t###    Swift-SAIO environment finished .. have fun :-)   ####"
     printf "\n\t#############################################################\n\n"
-
 
 return 0
 }
