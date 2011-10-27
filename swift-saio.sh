@@ -198,7 +198,9 @@ if [[ $SWIFT_DEPLOYMENT = "package" ]]; then
     source $MODULES/swift_repo_install.sh
     swift_repo_install
 elif [[ $SWIFT_DEPLOYMENT = "source" ]]; then     
-    source $MODULES/swift_source_install.sh
+    #source $MODULES/swift_source_install.sh
+    #swift_source_install
+    source $MODULES/swift_source_install_github.sh
     swift_source_install
 fi     
 
