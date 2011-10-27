@@ -21,9 +21,9 @@ slogging_setup () {
     SWAUTH_PREP=`which swauth-prep`
     SWAUTH_ADD=`which swauth-add-user`
     SWAUTH_LIST=`which swauth-list`
-    STATS_ACCOUNT="stats"
-    STATS_USER="stats"
-    STATS_PW="stats"
+    STATS_ACCOUNT="stats2"
+    STATS_USER="stats2"
+    STATS_PW="stats2"
     STATS_DIRECTORY="/var/log/swift/stats"
     ACCESS_STATS_DIRECTORY="/var/log/swift/access-log-delivery"
 
@@ -80,53 +80,53 @@ slogging_setup () {
 
         echo "$SLOGGING_REPO"  >$SLOGGING_APT_LIST
 
-        printf "\n\t\t Installing python-slogging for swift stats from its github repo\n"
+        printf "\n\t\t - Installing python-slogging for swift stats from its github repo"
         apt-get update -qq
-        apt-get install -y -qq --force-yes &>/dev/null
+        apt-get install -y -qq python-slogging slogging-doc --force-yes &>/dev/null
         
         CODE=$?
         if [ $CODE -eq 0 ];then
-            printf "\n\t\t -> Install sucessful "
+            printf "\t\t  -> Install sucessful \n"
         else
             printf "\t\t\t -> \033[1;31;40m Error found (check log file)  \033[0m\n\n"
             exit 1
         fi
 
-        printf "\n\t\t Setting up stats swift account"
-        $SWAUTH_ADD -K $SWAUTHKEY_VALUE -A $PRIV_AUTH_URL -a $STATS_ACCOUNT $STATS_USER $STATS_PW &>1 /dev/null
-        STATSHASH=`$SWAUTH_LIST -A $PRIV_AUTH_URL -K $SWAUTHKEY_VALUE stats | python -mjson.tool |grep "account_id" | tr -d " " | tr -d "\"" | tr -d "," | cut -d ":" -f 2`
+        printf "\n\t\t - Setting up stats swift account"
+        $SWAUTH_ADD -K $SWAUTHKEY_VALUE -A $PRIV_AUTH_URL -a $STATS_ACCOUNT $STATS_USER $STATS_PW 
+	sleep 5
+        STATSHASH=`$SWAUTH_LIST -A $PRIV_AUTH_URL -K $SWAUTHKEY_VALUE $STATS_ACCOUNT | python -mjson.tool |grep "account_id" | tr -d " " | tr -d "\"" | tr -d "," | cut -d ":" -f 2` 
 
-        printf "\n\t\t Configuring log-processor.conf (proxy and object)"
+        printf "\n\t\t - Configuring log-processor.conf (proxy and object) \n"
         cp $TEMPLATES/log-processor.conf.tmpl  /etc/swift/log-processor.conf
         sed -i "s/STATSHASH/$STATSHASH/g" /etc/swift/log-processor.conf
         sed -i "s#MOUNTPOINT#$MOUNT_LOCATION#g"  /etc/swift/log-processor.conf
         sed -i "s/MOUNT_CHECK_BOOLEAN_VALUE/$MOUNT_CHECK/g"  /etc/swift/log-processor.conf
         
-        printf "\n\t\t Setting up Proxy server related cronjobs for stats \n\n"
-        printf "\n\t\t Adding : $ACCESS_LOG_UPLOADER \n\n"
-        echo "$ACCESS_LOG_UPLOADER" >$ACCESS_LOG_UPLOADER_CRON         
+        printf "\n\t\t - Setting up Proxy server related cronjobs for stats"
+        printf "\n\t\t   Adding : $ACCESS_LOG_UPLOADER \n\n"
+        echo "$ACCESS_LOG_UPLOADER_CRON" >$ACCESS_LOG_UPLOADER         
 
-        printf "\n\t\t Setting up Object server related cronjobs for stats \n\n"
-        printf "\n\t\t Adding : \n\t $STATS_LOG_CREATOR \n\t $CONTAINER_STATS_LOG_CREATOR \n\t $STATS_LOG_UPLOADER \n\n"
+        printf "\n\t\t - Setting up Object server related cronjobs for stats"
+        printf "\n\t\t   Adding : \n\t\t\t $STATS_LOG_CREATOR \n\t\t\t $CONTAINER_STATS_LOG_CREATOR \n\t\t\t $STATS_LOG_UPLOADER \n"
         echo "$STATS_LOG_CREATOR_CRON" >$STATS_LOG_CREATOR         
         echo "$CONTAINER_STATS_LOG_CREATOR_CRON" >$CONTAINER_STATS_LOG_CREATOR
         echo "$STATS_LOG_UPLOADER_1_CRON" >$STATS_LOG_UPLOADER
         echo "$STATS_LOG_UPLOADER_2_CRON" >>$STATS_LOG_UPLOADER
 
 
-        printf "\n\t\t Configuring access-log-delivery.conf (usually on a data collection box) "
+        printf "\n\t\t - Configuring access-log-delivery.conf (usually on a data collection box) "
         cp $TEMPLATES/access-log-delivery.conf.tmpl  /etc/swift/access-log-delivery.conf
         sed -i "s/STATSHASH/$STATSHASH/g" /etc/swift/access-log-delivery.conf
         sed -i "s#MOUNTPOINT#$MOUNT_LOCATION#g"  /etc/swift/access-log-delivery.conf
         sed -i "s/MOUNT_CHECK_BOOLEAN_VALUE/$MOUNT_CHECK/g"  /etc/swift/access-log-delivery.conf
 
-        printf "\n\t\t Setting up Access log delivery related cronjobs \n\n"
-        printf "\n\t\t Adding : $ACCESS_LOG_DELIVERY \n\n"
+        printf "\n\t\t - Setting up Access log delivery related cronjobs "
+        printf "\n\t\t   Adding : $ACCESS_LOG_DELIVERY"
         echo "$ACCESS_LOG_DELIVERY_CRON" >$ACCESS_LOG_DELIVERY
 
-        printf "\n\t\t Reloading crond \n\n"
+        printf "\n\t\t - Reloading crond \n\n"
         /etc/init.d/cron reload &>/dev/null
-
 
     fi
 
