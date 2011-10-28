@@ -1,3 +1,7 @@
+swift-saio.sh (2011-10-28, ver=master)
+
+    * Fixing a few more things and also testing it on 11.10 by doing a source installation
+
 swift-saio.sh (2011-10-27, ver=master)
 
     * Added python-slogging support for 1.4.2 and above 
