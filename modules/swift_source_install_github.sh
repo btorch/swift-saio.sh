@@ -39,7 +39,7 @@ swift_source_install (){
     sleep 2
 
     printf "\t\t Building & Installing swift $VERSION under /usr/local "
-    python setup.py build 2>&1 > $CURDIR/swift_build_$VERSION.log
+    python setup.py build &>$CURDIR/swift_build_$VERSION.log
 
     CODE=$?
     if [ $CODE -eq 0 ];then
@@ -50,7 +50,7 @@ swift_source_install (){
     fi
 
     sleep 2
-    python setup.py install 2>&1 >  $CURDIR/swift_install_$VERSION.log
+    python setup.py install &>$CURDIR/swift_install_$VERSION.log
 
     CODE=$?
     if [ $CODE -eq 0 ];then
