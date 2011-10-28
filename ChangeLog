@@ -3,6 +3,7 @@ swift-saio.sh (2011-10-27, ver=master)
     * Added python-slogging support for 1.4.2 and above 
     * Also added the cronjobs for all the python-slogging needs
     * More information on : https://github.com/btorch/slogging/blob/master/doc/source/overview_stats.rst  
+    * Removing all Launchpad PPA stuff and using just crashsite from now on
 
 swift-saio.sh (2011-08-02, ver=master)
 

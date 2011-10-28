@@ -330,4 +330,11 @@ sleep 5
 source $MODULES/swift_stats_logging_setup.sh
 slogging_setup
 
+
+###############################
+# SWAUTH ACCOUNT INFO/URL
+###############################
+swauth_info
+
+
 exit 0 

@@ -60,37 +60,11 @@ install_python_deps (){
     fi
 
 
-    # Start of PPA installation of certain python modules
-    printf "\n\t - Python packages PPA installation (dependecies) "
+    # Start of CrashSite installation of certain python modules
+    printf "\n\t - Python packages CrashSite installation (dependecies) "
     printf "\n\t\t Packages: python-eventlet python-greenlet python-webob  \n"
-    printf "\n\t\t The PPA repo will be temporarily added and then removed "
-    printf "\n\t\t Is it ok to have it removed ? (y/n) "
 
-    read choice
-    if [ "$choice" = "y" ]; then
-        REMOVE_PPA=1
-        printf "\t\t -> PPA repo will be removed "
-    else
-        REMOVE_PPA=0
-        printf "\t\t -> PPA repo will not be removed as requested "
-    fi
-
-    printf "\n"
-
-
-    COMMANDS=("apt-get install python-software-properties -qq -y" "add-apt-repository ppa:swift-core/trunk " "apt-get -qq update")
-    for i in "${COMMANDS[@]}"
-    do
-        RESULT=`$i 2>&1`
-        if [ $? != 0 ]; then
-            printf "\t\t\t -> CMD: $i \n"
-            printf "\t\t\t -> $RESULT \n"
-            printf "\t\t\t -> \033[1;31;40m Error found  \033[0m\n\n"
-            exit 1
-        fi
-    done
-
-    printf "\n\t\t Proceeding with python PPA package(s) installation "
+    printf "\n\t\t Proceeding with python CrashSite package(s) installation "
     if [ "$IPV6_SUPPORT" = "true" ]; then
         RESULT=`$INSTOOL install python-greenlet python-webob $INSTOOL_OPTS &> /dev/null ; echo $?`
         RESULT2=`easy_install $EVENTLET_VER  &> /dev/null ; echo $?`
@@ -105,10 +79,6 @@ install_python_deps (){
         printf "\t\t\t -> $RESULT \n"
         printf "\t\t\t -> \033[1;31;40m Error found  \033[0m\n\n"
         exit 1
-    fi
-
-    if [ $REMOVE_PPA -eq 1 ]; then
-        find /etc/apt/sources.list.d -iname "swift*" -type f -exec rm -f {} \;
     fi
 
 return 0 
