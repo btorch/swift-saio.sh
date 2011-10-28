@@ -26,10 +26,12 @@ final_steps (){
         printf "\n\t\t Adding swift user & group "
         groupadd swift
         useradd -s /bin/false -g swift swift
+        usermod -a -G adm swift
     else
         printf "\n\t\t User/group swift already exists "
+        usermod -a -G adm swift
     fi
-
+ 
     printf "\n\t\t Creating /var/run/swift and /var/log/swift"
     mkdir -p /var/run/swift /var/log/swift
     chown swift.swift /var/run/swift

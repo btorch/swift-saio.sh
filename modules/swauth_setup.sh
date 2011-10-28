@@ -38,7 +38,7 @@ swauth_setup (){
 
 
     printf "\n\t - SWAuth account prep "
-    printf "\n\t\t Setting up swiftops account \n\n"
+    printf "\n\t\t Setting up swiftops account \n\n\n"
 
     $SWAUTH_PREP -K $SWAUTHKEY_VALUE -A $PRIV_AUTH_URL  
     $SWAUTH_ADD -K $SWAUTHKEY_VALUE -A $PRIV_AUTH_URL -a $SWACCOUNT $SWUSER $SWPASS
