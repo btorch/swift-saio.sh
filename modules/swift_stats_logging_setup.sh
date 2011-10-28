@@ -67,12 +67,12 @@ slogging_setup () {
     if [[ "$VERSION" =~ $VER_REGEX ]]; then
 
     
-        if [ -d $STATS_DIRECTORY ]; then 
+        if [ ! -d $STATS_DIRECTORY ]; then 
             mkdir -p $STATS_DIRECTORY
             chown swift.swift $STATS_DIRECTORY
         fi
 
-        if [ -d $ACCESS_STATS_DIRECTORY ]; then 
+        if [ ! -d $ACCESS_STATS_DIRECTORY ]; then 
             mkdir -p $ACCESS_STATS_DIRECTORY
             chown swift.swift $ACCESS_STATS_DIRECTORY
         fi
