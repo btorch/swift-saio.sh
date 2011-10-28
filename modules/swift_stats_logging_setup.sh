@@ -21,9 +21,9 @@ slogging_setup () {
     SWAUTH_PREP=`which swauth-prep`
     SWAUTH_ADD=`which swauth-add-user`
     SWAUTH_LIST=`which swauth-list`
-    STATS_ACCOUNT="stats2"
-    STATS_USER="stats2"
-    STATS_PW="stats2"
+    STATS_ACCOUNT="stats"
+    STATS_USER="stats"
+    STATS_PW="stats"
     STATS_DIRECTORY="/var/log/swift/stats"
     ACCESS_STATS_DIRECTORY="/var/log/swift/access-log-delivery"
 
