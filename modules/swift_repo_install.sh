@@ -16,9 +16,9 @@
 
 swift_repo_install (){
 
-    SWIFT_REPO="deb http://crashsite.github.com/swift_debian/lucid-$VERSION lucid main"
-    SWIFT_APT_LIST="/etc/apt/sources.list.d/swift_github.list"
-    echo $SWIFT_REPO >$SWIFT_APT_LIST
+    if [ ! -e $SWIFT_APT_LIST ]; then
+        echo "$SWIFT_REPO" >$SWIFT_APT_LIST
+    fi
 
     printf "\n\t - Starting swift github debian repository installation process \n"
     apt-get update -qq

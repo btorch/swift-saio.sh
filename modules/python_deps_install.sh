@@ -21,16 +21,14 @@ install_python_deps (){
     SYSTYPE=$1
     EVENTLET_VER="http://pypi.python.org/packages/source/e/eventlet/eventlet-0.9.15.tar.gz"
 
-    # This has not really been implemented. It's just an idea and more things
-    # need to change in order for this too work. e.g: pkg names, flags, etc ...
-    if [ "$SYSTYPE" = "debin" ] || [ "$SYSTYPE" = "ubuntu" ]; then
-        INSTOOL="apt-get"
-        INSTOOL_OPTS="-y --force-yes -qq"
-        INSTOOL_UPDATE="$INSTOOL -qq update"
-    elif [ "$SYSTYPE" = "suse" ] || [ "$SYSTYPE" = "opensuse" ]; then
-        INSTOOL="zypper"
-    fi
+    INSTOOL="apt-get"
+    INSTOOL_OPTS="-y --force-yes -qq"
+    INSTOOL_UPDATE="$INSTOOL -qq update"
 
+    if [ ! -e $SWIFT_APT_LIST ]; then 
+        echo "$SWIFT_REPO" >$SWIFT_APT_LIST
+        apt-get update -qq
+    fi
 
     # Start installation of Python-modules dependencies 
     # List of Packages : python-configobj python-setuptools python-pastedeploy python-openssl python-cheetah  

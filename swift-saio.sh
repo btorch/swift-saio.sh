@@ -187,7 +187,7 @@ install_non_python_deps "ubuntu"
 ####################################
 if [[ $SWIFT_DEPLOYMENT = "source" ]]; then 
     source $MODULES/python_deps_install.sh
-    install_python_deps "ubuntu"
+    install_python_deps 
 fi
 
 
