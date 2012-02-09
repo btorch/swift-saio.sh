@@ -1,3 +1,9 @@
+
+swift-saio.sh (2012-02-09, ver=master)
+
+    * Adding object-expiring config 
+    * Also updating default version to 1.4.5
+
 swift-saio.sh (2011-10-28, ver=master)
 
     * Fixing a few more things and also testing it on 11.10 by doing a source installation
