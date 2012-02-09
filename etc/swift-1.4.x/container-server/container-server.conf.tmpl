@@ -61,6 +61,19 @@ vm_test_mode = VM_TEST_MODE_BOOLEAN_VALUE
 # Will audit, at most, 1 container per device per interval
 # interval = 1800
 
+[container-sync]
+# You can override the default log routing for this app here (don't use set!):
+# log_name = container-sync
+# log_facility = LOG_LOCAL0
+# log_level = INFO
+# If you need to use an HTTP Proxy, set it here; defaults to no proxy.
+# sync_proxy = http://127.0.0.1:8888
+# Will sync, at most, each container once per interval
+# interval = 300
+# Maximum amount of time to spend syncing each container per pass
+# container_time = 60
+
 [filter:healthcheck]
 use = egg:swift#healthcheck
+
 
