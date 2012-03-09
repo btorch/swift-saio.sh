@@ -1,3 +1,7 @@
+swift-saio.sh (2012-03-09, ver=master)
+
+    * Adding some new middleware options to the proxy and object configs
+    * Also updating default version to 1.4.6
 
 swift-saio.sh (2012-02-09, ver=master)
 
