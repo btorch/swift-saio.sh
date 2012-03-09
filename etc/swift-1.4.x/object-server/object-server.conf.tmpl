@@ -35,6 +35,11 @@ set log_requests = True
 # Content-Type, etag, Content-Length, or deleted
 # allowed_headers = Content-Encoding, Content-Disposition, X-Object-Manifest
 
+# Must be before the object-server in the pipeline
+[filter:recon]
+use = egg:swift#recon
+recon_cache_path = /var/cache/swift
+
 [object-replicator]
 # You can override the default log routing for this app here (don't use set!):
 # log_name = object-replicator
